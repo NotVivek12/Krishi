@@ -1,0 +1,4 @@
+Model,n_estimators,Features Used,Leakage Columns Dropped,Train Size,Test Size,Accuracy,Precision (weighted),Recall (weighted),F1 Score (weighted),Note
+Random Forest,200.0,12,10,45600,11400,0.9999,0.9999,0.9999,0.9999,Dataset is synthetically generated from crop requirement ranges. Used as simulation environment for FL framework.
+Dense Neural Network,,12,10,45600,11400,0.996,0.996,0.996,0.996,Dense(128→64→32→57) with BatchNorm + Dropout. StandardScaler applied.
+CNN-LSTM,N/A,12,10,45600,11400,0.9936,0.9937,0.9936,0.9936,"Conv1D(64)->Pool->Conv1D(32)->Pool->LSTM(64)->Dense(64)->Output(57). Tabular X reshaped to (N, features, 1)."

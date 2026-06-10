@@ -1,0 +1,677 @@
+[
+  {
+    "round": 1,
+    "experiment_tag": "10_clients",
+    "accuracy": 0.2961,
+    "loss": 3.4477,
+    "timestamp": "2026-06-09T10:13:27",
+    "filename": "10_clients_round_01.keras",
+    "path": "D:\\Krishi\\ml\\models\\versioned\\10_clients_round_01.keras"
+  },
+  {
+    "round": 2,
+    "experiment_tag": "10_clients",
+    "accuracy": 0.3821,
+    "loss": 2.7479,
+    "timestamp": "2026-06-09T10:13:45",
+    "filename": "10_clients_round_02.keras",
+    "path": "D:\\Krishi\\ml\\models\\versioned\\10_clients_round_02.keras"
+  },
+  {
+    "round": 3,
+    "experiment_tag": "10_clients",
+    "accuracy": 0.3973,
+    "loss": 2.6168,
+    "timestamp": "2026-06-09T10:14:04",
+    "filename": "10_clients_round_03.keras",
+    "path": "D:\\Krishi\\ml\\models\\versioned\\10_clients_round_03.keras"
+  },
+  {
+    "round": 4,
+    "experiment_tag": "10_clients",
+    "accuracy": 0.4236,
+    "loss": 2.593,
+    "timestamp": "2026-06-09T10:14:23",
+    "filename": "10_clients_round_04.keras",
+    "path": "D:\\Krishi\\ml\\models\\versioned\\10_clients_round_04.keras"
+  },
+  {
+    "round": 5,
+    "experiment_tag": "10_clients",
+    "accuracy": 0.4413,
+    "loss": 2.5742,
+    "timestamp": "2026-06-09T10:14:41",
+    "filename": "10_clients_round_05.keras",
+    "path": "D:\\Krishi\\ml\\models\\versioned\\10_clients_round_05.keras"
+  },
+  {
+    "round": 6,
+    "experiment_tag": "10_clients",
+    "accuracy": 0.451,
+    "loss": 2.5382,
+    "timestamp": "2026-06-09T10:15:00",
+    "filename": "10_clients_round_06.keras",
+    "path": "D:\\Krishi\\ml\\models\\versioned\\10_clients_round_06.keras"
+  },
+  {
+    "round": 7,
+    "experiment_tag": "10_clients",
+    "accuracy": 0.4641,
+    "loss": 2.4848,
+    "timestamp": "2026-06-09T10:15:19",
+    "filename": "10_clients_round_07.keras",
+    "path": "D:\\Krishi\\ml\\models\\versioned\\10_clients_round_07.keras"
+  },
+  {
+    "round": 8,
+    "experiment_tag": "10_clients",
+    "accuracy": 0.4832,
+    "loss": 2.4507,
+    "timestamp": "2026-06-09T10:15:38",
+    "filename": "10_clients_round_08.keras",
+    "path": "D:\\Krishi\\ml\\models\\versioned\\10_clients_round_08.keras"
+  },
+  {
+    "round": 9,
+    "experiment_tag": "10_clients",
+    "accuracy": 0.4958,
+    "loss": 2.3835,
+    "timestamp": "2026-06-09T10:15:56",
+    "filename": "10_clients_round_09.keras",
+    "path": "D:\\Krishi\\ml\\models\\versioned\\10_clients_round_09.keras"
+  },
+  {
+    "round": 10,
+    "experiment_tag": "10_clients",
+    "accuracy": 0.5051,
+    "loss": 2.3438,
+    "timestamp": "2026-06-09T10:16:18",
+    "filename": "10_clients_round_10.keras",
+    "path": "D:\\Krishi\\ml\\models\\versioned\\10_clients_round_10.keras"
+  },
+  {
+    "round": 11,
+    "experiment_tag": "10_clients",
+    "accuracy": 0.51,
+    "loss": 2.309,
+    "timestamp": "2026-06-09T10:16:37",
+    "filename": "10_clients_round_11.keras",
+    "path": "D:\\Krishi\\ml\\models\\versioned\\10_clients_round_11.keras"
+  },
+  {
+    "round": 12,
+    "experiment_tag": "10_clients",
+    "accuracy": 0.524,
+    "loss": 2.2687,
+    "timestamp": "2026-06-09T10:16:56",
+    "filename": "10_clients_round_12.keras",
+    "path": "D:\\Krishi\\ml\\models\\versioned\\10_clients_round_12.keras"
+  },
+  {
+    "round": 13,
+    "experiment_tag": "10_clients",
+    "accuracy": 0.5375,
+    "loss": 2.2274,
+    "timestamp": "2026-06-09T10:17:17",
+    "filename": "10_clients_round_13.keras",
+    "path": "D:\\Krishi\\ml\\models\\versioned\\10_clients_round_13.keras"
+  },
+  {
+    "round": 14,
+    "experiment_tag": "10_clients",
+    "accuracy": 0.5435,
+    "loss": 2.2044,
+    "timestamp": "2026-06-09T10:17:36",
+    "filename": "10_clients_round_14.keras",
+    "path": "D:\\Krishi\\ml\\models\\versioned\\10_clients_round_14.keras"
+  },
+  {
+    "round": 15,
+    "experiment_tag": "10_clients",
+    "accuracy": 0.5452,
+    "loss": 2.2223,
+    "timestamp": "2026-06-09T10:17:54",
+    "filename": "10_clients_round_15.keras",
+    "path": "D:\\Krishi\\ml\\models\\versioned\\10_clients_round_15.keras"
+  },
+  {
+    "round": 16,
+    "experiment_tag": "10_clients",
+    "accuracy": 0.5488,
+    "loss": 2.2383,
+    "timestamp": "2026-06-09T10:18:15",
+    "filename": "10_clients_round_16.keras",
+    "path": "D:\\Krishi\\ml\\models\\versioned\\10_clients_round_16.keras"
+  },
+  {
+    "round": 17,
+    "experiment_tag": "10_clients",
+    "accuracy": 0.5547,
+    "loss": 2.2519,
+    "timestamp": "2026-06-09T10:18:33",
+    "filename": "10_clients_round_17.keras",
+    "path": "D:\\Krishi\\ml\\models\\versioned\\10_clients_round_17.keras"
+  },
+  {
+    "round": 18,
+    "experiment_tag": "10_clients",
+    "accuracy": 0.5481,
+    "loss": 2.273,
+    "timestamp": "2026-06-09T10:18:52",
+    "filename": "10_clients_round_18.keras",
+    "path": "D:\\Krishi\\ml\\models\\versioned\\10_clients_round_18.keras"
+  },
+  {
+    "round": 19,
+    "experiment_tag": "10_clients",
+    "accuracy": 0.5414,
+    "loss": 2.2714,
+    "timestamp": "2026-06-09T10:19:13",
+    "filename": "10_clients_round_19.keras",
+    "path": "D:\\Krishi\\ml\\models\\versioned\\10_clients_round_19.keras"
+  },
+  {
+    "round": 20,
+    "experiment_tag": "10_clients",
+    "accuracy": 0.5525,
+    "loss": 2.2915,
+    "timestamp": "2026-06-09T10:19:32",
+    "filename": "10_clients_round_20.keras",
+    "path": "D:\\Krishi\\ml\\models\\versioned\\10_clients_round_20.keras"
+  },
+  {
+    "round": 21,
+    "experiment_tag": "10_clients",
+    "accuracy": 0.5563,
+    "loss": 2.2901,
+    "timestamp": "2026-06-09T10:19:50",
+    "filename": "10_clients_round_21.keras",
+    "path": "D:\\Krishi\\ml\\models\\versioned\\10_clients_round_21.keras"
+  },
+  {
+    "round": 22,
+    "experiment_tag": "10_clients",
+    "accuracy": 0.5555,
+    "loss": 2.2987,
+    "timestamp": "2026-06-09T10:20:09",
+    "filename": "10_clients_round_22.keras",
+    "path": "D:\\Krishi\\ml\\models\\versioned\\10_clients_round_22.keras"
+  },
+  {
+    "round": 23,
+    "experiment_tag": "10_clients",
+    "accuracy": 0.5581,
+    "loss": 2.3086,
+    "timestamp": "2026-06-09T10:20:30",
+    "filename": "10_clients_round_23.keras",
+    "path": "D:\\Krishi\\ml\\models\\versioned\\10_clients_round_23.keras"
+  },
+  {
+    "round": 24,
+    "experiment_tag": "10_clients",
+    "accuracy": 0.5658,
+    "loss": 2.3087,
+    "timestamp": "2026-06-09T10:20:49",
+    "filename": "10_clients_round_24.keras",
+    "path": "D:\\Krishi\\ml\\models\\versioned\\10_clients_round_24.keras"
+  },
+  {
+    "round": 25,
+    "experiment_tag": "10_clients",
+    "accuracy": 0.551,
+    "loss": 2.3412,
+    "timestamp": "2026-06-09T10:21:08",
+    "filename": "10_clients_round_25.keras",
+    "path": "D:\\Krishi\\ml\\models\\versioned\\10_clients_round_25.keras"
+  },
+  {
+    "round": 1,
+    "experiment_tag": "20_clients",
+    "accuracy": 0.1791,
+    "loss": 3.7338,
+    "timestamp": "2026-06-09T09:30:40",
+    "filename": "20_clients_round_01.keras",
+    "path": "D:\\Krishi\\ml\\models\\versioned\\20_clients_round_01.keras"
+  },
+  {
+    "round": 2,
+    "experiment_tag": "20_clients",
+    "accuracy": 0.3214,
+    "loss": 3.1385,
+    "timestamp": "2026-06-09T09:31:29",
+    "filename": "20_clients_round_02.keras",
+    "path": "D:\\Krishi\\ml\\models\\versioned\\20_clients_round_02.keras"
+  },
+  {
+    "round": 3,
+    "experiment_tag": "20_clients",
+    "accuracy": 0.3408,
+    "loss": 2.9287,
+    "timestamp": "2026-06-09T09:32:27",
+    "filename": "20_clients_round_03.keras",
+    "path": "D:\\Krishi\\ml\\models\\versioned\\20_clients_round_03.keras"
+  },
+  {
+    "round": 4,
+    "experiment_tag": "20_clients",
+    "accuracy": 0.3507,
+    "loss": 2.9233,
+    "timestamp": "2026-06-09T09:33:06",
+    "filename": "20_clients_round_04.keras",
+    "path": "D:\\Krishi\\ml\\models\\versioned\\20_clients_round_04.keras"
+  },
+  {
+    "round": 5,
+    "experiment_tag": "20_clients",
+    "accuracy": 0.354,
+    "loss": 2.9236,
+    "timestamp": "2026-06-09T09:33:59",
+    "filename": "20_clients_round_05.keras",
+    "path": "D:\\Krishi\\ml\\models\\versioned\\20_clients_round_05.keras"
+  },
+  {
+    "round": 6,
+    "experiment_tag": "20_clients",
+    "accuracy": 0.3727,
+    "loss": 2.8826,
+    "timestamp": "2026-06-09T09:34:53",
+    "filename": "20_clients_round_06.keras",
+    "path": "D:\\Krishi\\ml\\models\\versioned\\20_clients_round_06.keras"
+  },
+  {
+    "round": 7,
+    "experiment_tag": "20_clients",
+    "accuracy": 0.3896,
+    "loss": 2.8375,
+    "timestamp": "2026-06-09T09:35:54",
+    "filename": "20_clients_round_07.keras",
+    "path": "D:\\Krishi\\ml\\models\\versioned\\20_clients_round_07.keras"
+  },
+  {
+    "round": 8,
+    "experiment_tag": "20_clients",
+    "accuracy": 0.4002,
+    "loss": 2.81,
+    "timestamp": "2026-06-09T09:36:34",
+    "filename": "20_clients_round_08.keras",
+    "path": "D:\\Krishi\\ml\\models\\versioned\\20_clients_round_08.keras"
+  },
+  {
+    "round": 9,
+    "experiment_tag": "20_clients",
+    "accuracy": 0.4208,
+    "loss": 2.7344,
+    "timestamp": "2026-06-09T09:37:33",
+    "filename": "20_clients_round_09.keras",
+    "path": "D:\\Krishi\\ml\\models\\versioned\\20_clients_round_09.keras"
+  },
+  {
+    "round": 10,
+    "experiment_tag": "20_clients",
+    "accuracy": 0.4302,
+    "loss": 2.711,
+    "timestamp": "2026-06-09T09:38:24",
+    "filename": "20_clients_round_10.keras",
+    "path": "D:\\Krishi\\ml\\models\\versioned\\20_clients_round_10.keras"
+  },
+  {
+    "round": 11,
+    "experiment_tag": "20_clients",
+    "accuracy": 0.4344,
+    "loss": 2.7013,
+    "timestamp": "2026-06-09T09:39:12",
+    "filename": "20_clients_round_11.keras",
+    "path": "D:\\Krishi\\ml\\models\\versioned\\20_clients_round_11.keras"
+  },
+  {
+    "round": 12,
+    "experiment_tag": "20_clients",
+    "accuracy": 0.4467,
+    "loss": 2.6782,
+    "timestamp": "2026-06-09T09:40:12",
+    "filename": "20_clients_round_12.keras",
+    "path": "D:\\Krishi\\ml\\models\\versioned\\20_clients_round_12.keras"
+  },
+  {
+    "round": 13,
+    "experiment_tag": "20_clients",
+    "accuracy": 0.4604,
+    "loss": 2.6507,
+    "timestamp": "2026-06-09T09:40:56",
+    "filename": "20_clients_round_13.keras",
+    "path": "D:\\Krishi\\ml\\models\\versioned\\20_clients_round_13.keras"
+  },
+  {
+    "round": 14,
+    "experiment_tag": "20_clients",
+    "accuracy": 0.4787,
+    "loss": 2.6326,
+    "timestamp": "2026-06-09T09:41:57",
+    "filename": "20_clients_round_14.keras",
+    "path": "D:\\Krishi\\ml\\models\\versioned\\20_clients_round_14.keras"
+  },
+  {
+    "round": 15,
+    "experiment_tag": "20_clients",
+    "accuracy": 0.473,
+    "loss": 2.6387,
+    "timestamp": "2026-06-09T09:42:50",
+    "filename": "20_clients_round_15.keras",
+    "path": "D:\\Krishi\\ml\\models\\versioned\\20_clients_round_15.keras"
+  },
+  {
+    "round": 16,
+    "experiment_tag": "20_clients",
+    "accuracy": 0.4748,
+    "loss": 2.6362,
+    "timestamp": "2026-06-09T09:43:43",
+    "filename": "20_clients_round_16.keras",
+    "path": "D:\\Krishi\\ml\\models\\versioned\\20_clients_round_16.keras"
+  },
+  {
+    "round": 17,
+    "experiment_tag": "20_clients",
+    "accuracy": 0.4627,
+    "loss": 2.6522,
+    "timestamp": "2026-06-09T09:44:33",
+    "filename": "20_clients_round_17.keras",
+    "path": "D:\\Krishi\\ml\\models\\versioned\\20_clients_round_17.keras"
+  },
+  {
+    "round": 18,
+    "experiment_tag": "20_clients",
+    "accuracy": 0.4694,
+    "loss": 2.6592,
+    "timestamp": "2026-06-09T09:45:34",
+    "filename": "20_clients_round_18.keras",
+    "path": "D:\\Krishi\\ml\\models\\versioned\\20_clients_round_18.keras"
+  },
+  {
+    "round": 19,
+    "experiment_tag": "20_clients",
+    "accuracy": 0.4631,
+    "loss": 2.7034,
+    "timestamp": "2026-06-09T09:46:20",
+    "filename": "20_clients_round_19.keras",
+    "path": "D:\\Krishi\\ml\\models\\versioned\\20_clients_round_19.keras"
+  },
+  {
+    "round": 20,
+    "experiment_tag": "20_clients",
+    "accuracy": 0.4683,
+    "loss": 2.6897,
+    "timestamp": "2026-06-09T09:47:06",
+    "filename": "20_clients_round_20.keras",
+    "path": "D:\\Krishi\\ml\\models\\versioned\\20_clients_round_20.keras"
+  },
+  {
+    "round": 21,
+    "experiment_tag": "20_clients",
+    "accuracy": 0.4656,
+    "loss": 2.691,
+    "timestamp": "2026-06-09T09:48:11",
+    "filename": "20_clients_round_21.keras",
+    "path": "D:\\Krishi\\ml\\models\\versioned\\20_clients_round_21.keras"
+  },
+  {
+    "round": 22,
+    "experiment_tag": "20_clients",
+    "accuracy": 0.471,
+    "loss": 2.7079,
+    "timestamp": "2026-06-09T09:56:23",
+    "filename": "20_clients_round_22.keras",
+    "path": "D:\\Krishi\\ml\\models\\versioned\\20_clients_round_22.keras"
+  },
+  {
+    "round": 23,
+    "experiment_tag": "20_clients",
+    "accuracy": 0.4743,
+    "loss": 2.7404,
+    "timestamp": "2026-06-09T09:57:01",
+    "filename": "20_clients_round_23.keras",
+    "path": "D:\\Krishi\\ml\\models\\versioned\\20_clients_round_23.keras"
+  },
+  {
+    "round": 24,
+    "experiment_tag": "20_clients",
+    "accuracy": 0.474,
+    "loss": 2.7539,
+    "timestamp": "2026-06-09T09:58:01",
+    "filename": "20_clients_round_24.keras",
+    "path": "D:\\Krishi\\ml\\models\\versioned\\20_clients_round_24.keras"
+  },
+  {
+    "round": 25,
+    "experiment_tag": "20_clients",
+    "accuracy": 0.4806,
+    "loss": 2.7635,
+    "timestamp": "2026-06-09T09:59:04",
+    "filename": "20_clients_round_25.keras",
+    "path": "D:\\Krishi\\ml\\models\\versioned\\20_clients_round_25.keras"
+  },
+  {
+    "round": 1,
+    "experiment_tag": "5_clients",
+    "accuracy": 0.4363,
+    "loss": 2.7348,
+    "timestamp": "2026-06-09T10:07:33",
+    "filename": "5_clients_round_01.keras",
+    "path": "D:\\Krishi\\ml\\models\\versioned\\5_clients_round_01.keras"
+  },
+  {
+    "round": 2,
+    "experiment_tag": "5_clients",
+    "accuracy": 0.4776,
+    "loss": 1.9708,
+    "timestamp": "2026-06-09T10:07:44",
+    "filename": "5_clients_round_02.keras",
+    "path": "D:\\Krishi\\ml\\models\\versioned\\5_clients_round_02.keras"
+  },
+  {
+    "round": 3,
+    "experiment_tag": "5_clients",
+    "accuracy": 0.4878,
+    "loss": 1.9198,
+    "timestamp": "2026-06-09T10:07:54",
+    "filename": "5_clients_round_03.keras",
+    "path": "D:\\Krishi\\ml\\models\\versioned\\5_clients_round_03.keras"
+  },
+  {
+    "round": 4,
+    "experiment_tag": "5_clients",
+    "accuracy": 0.5156,
+    "loss": 1.8712,
+    "timestamp": "2026-06-09T10:08:05",
+    "filename": "5_clients_round_04.keras",
+    "path": "D:\\Krishi\\ml\\models\\versioned\\5_clients_round_04.keras"
+  },
+  {
+    "round": 5,
+    "experiment_tag": "5_clients",
+    "accuracy": 0.5538,
+    "loss": 1.7789,
+    "timestamp": "2026-06-09T10:08:15",
+    "filename": "5_clients_round_05.keras",
+    "path": "D:\\Krishi\\ml\\models\\versioned\\5_clients_round_05.keras"
+  },
+  {
+    "round": 6,
+    "experiment_tag": "5_clients",
+    "accuracy": 0.5814,
+    "loss": 1.697,
+    "timestamp": "2026-06-09T10:08:26",
+    "filename": "5_clients_round_06.keras",
+    "path": "D:\\Krishi\\ml\\models\\versioned\\5_clients_round_06.keras"
+  },
+  {
+    "round": 7,
+    "experiment_tag": "5_clients",
+    "accuracy": 0.6187,
+    "loss": 1.5565,
+    "timestamp": "2026-06-09T10:08:36",
+    "filename": "5_clients_round_07.keras",
+    "path": "D:\\Krishi\\ml\\models\\versioned\\5_clients_round_07.keras"
+  },
+  {
+    "round": 8,
+    "experiment_tag": "5_clients",
+    "accuracy": 0.6368,
+    "loss": 1.4879,
+    "timestamp": "2026-06-09T10:08:47",
+    "filename": "5_clients_round_08.keras",
+    "path": "D:\\Krishi\\ml\\models\\versioned\\5_clients_round_08.keras"
+  },
+  {
+    "round": 9,
+    "experiment_tag": "5_clients",
+    "accuracy": 0.6561,
+    "loss": 1.4168,
+    "timestamp": "2026-06-09T10:08:57",
+    "filename": "5_clients_round_09.keras",
+    "path": "D:\\Krishi\\ml\\models\\versioned\\5_clients_round_09.keras"
+  },
+  {
+    "round": 10,
+    "experiment_tag": "5_clients",
+    "accuracy": 0.6601,
+    "loss": 1.3684,
+    "timestamp": "2026-06-09T10:09:10",
+    "filename": "5_clients_round_10.keras",
+    "path": "D:\\Krishi\\ml\\models\\versioned\\5_clients_round_10.keras"
+  },
+  {
+    "round": 11,
+    "experiment_tag": "5_clients",
+    "accuracy": 0.6948,
+    "loss": 1.2928,
+    "timestamp": "2026-06-09T10:09:20",
+    "filename": "5_clients_round_11.keras",
+    "path": "D:\\Krishi\\ml\\models\\versioned\\5_clients_round_11.keras"
+  },
+  {
+    "round": 12,
+    "experiment_tag": "5_clients",
+    "accuracy": 0.6978,
+    "loss": 1.2932,
+    "timestamp": "2026-06-09T10:09:30",
+    "filename": "5_clients_round_12.keras",
+    "path": "D:\\Krishi\\ml\\models\\versioned\\5_clients_round_12.keras"
+  },
+  {
+    "round": 13,
+    "experiment_tag": "5_clients",
+    "accuracy": 0.689,
+    "loss": 1.3122,
+    "timestamp": "2026-06-09T10:09:42",
+    "filename": "5_clients_round_13.keras",
+    "path": "D:\\Krishi\\ml\\models\\versioned\\5_clients_round_13.keras"
+  },
+  {
+    "round": 14,
+    "experiment_tag": "5_clients",
+    "accuracy": 0.7108,
+    "loss": 1.3039,
+    "timestamp": "2026-06-09T10:09:52",
+    "filename": "5_clients_round_14.keras",
+    "path": "D:\\Krishi\\ml\\models\\versioned\\5_clients_round_14.keras"
+  },
+  {
+    "round": 15,
+    "experiment_tag": "5_clients",
+    "accuracy": 0.692,
+    "loss": 1.3319,
+    "timestamp": "2026-06-09T10:10:02",
+    "filename": "5_clients_round_15.keras",
+    "path": "D:\\Krishi\\ml\\models\\versioned\\5_clients_round_15.keras"
+  },
+  {
+    "round": 16,
+    "experiment_tag": "5_clients",
+    "accuracy": 0.7194,
+    "loss": 1.2945,
+    "timestamp": "2026-06-09T10:10:14",
+    "filename": "5_clients_round_16.keras",
+    "path": "D:\\Krishi\\ml\\models\\versioned\\5_clients_round_16.keras"
+  },
+  {
+    "round": 17,
+    "experiment_tag": "5_clients",
+    "accuracy": 0.7127,
+    "loss": 1.3092,
+    "timestamp": "2026-06-09T10:10:25",
+    "filename": "5_clients_round_17.keras",
+    "path": "D:\\Krishi\\ml\\models\\versioned\\5_clients_round_17.keras"
+  },
+  {
+    "round": 18,
+    "experiment_tag": "5_clients",
+    "accuracy": 0.7112,
+    "loss": 1.3338,
+    "timestamp": "2026-06-09T10:10:35",
+    "filename": "5_clients_round_18.keras",
+    "path": "D:\\Krishi\\ml\\models\\versioned\\5_clients_round_18.keras"
+  },
+  {
+    "round": 19,
+    "experiment_tag": "5_clients",
+    "accuracy": 0.713,
+    "loss": 1.3462,
+    "timestamp": "2026-06-09T10:10:46",
+    "filename": "5_clients_round_19.keras",
+    "path": "D:\\Krishi\\ml\\models\\versioned\\5_clients_round_19.keras"
+  },
+  {
+    "round": 20,
+    "experiment_tag": "5_clients",
+    "accuracy": 0.7082,
+    "loss": 1.3688,
+    "timestamp": "2026-06-09T10:10:57",
+    "filename": "5_clients_round_20.keras",
+    "path": "D:\\Krishi\\ml\\models\\versioned\\5_clients_round_20.keras"
+  },
+  {
+    "round": 21,
+    "experiment_tag": "5_clients",
+    "accuracy": 0.715,
+    "loss": 1.3967,
+    "timestamp": "2026-06-09T10:11:08",
+    "filename": "5_clients_round_21.keras",
+    "path": "D:\\Krishi\\ml\\models\\versioned\\5_clients_round_21.keras"
+  },
+  {
+    "round": 22,
+    "experiment_tag": "5_clients",
+    "accuracy": 0.709,
+    "loss": 1.4115,
+    "timestamp": "2026-06-09T10:11:19",
+    "filename": "5_clients_round_22.keras",
+    "path": "D:\\Krishi\\ml\\models\\versioned\\5_clients_round_22.keras"
+  },
+  {
+    "round": 23,
+    "experiment_tag": "5_clients",
+    "accuracy": 0.7125,
+    "loss": 1.4077,
+    "timestamp": "2026-06-09T10:11:29",
+    "filename": "5_clients_round_23.keras",
+    "path": "D:\\Krishi\\ml\\models\\versioned\\5_clients_round_23.keras"
+  },
+  {
+    "round": 24,
+    "experiment_tag": "5_clients",
+    "accuracy": 0.6941,
+    "loss": 1.4482,
+    "timestamp": "2026-06-09T10:11:40",
+    "filename": "5_clients_round_24.keras",
+    "path": "D:\\Krishi\\ml\\models\\versioned\\5_clients_round_24.keras"
+  },
+  {
+    "round": 25,
+    "experiment_tag": "5_clients",
+    "accuracy": 0.6771,
+    "loss": 1.515,
+    "timestamp": "2026-06-09T10:11:52",
+    "filename": "5_clients_round_25.keras",
+    "path": "D:\\Krishi\\ml\\models\\versioned\\5_clients_round_25.keras"
+  }
+]
