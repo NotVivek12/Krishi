@@ -1,4 +1,7 @@
 .venv/
+venv/
+env/
+ENV/
 __pycache__/
 *.pyc
 .env
@@ -7,3 +10,4 @@ __pycache__/
 htmlcov/
 backend/db.sqlite3
 backend/staticfiles/
+PROJECT_STATUS_LOCAL.md

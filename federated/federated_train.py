@@ -56,12 +56,15 @@ from sklearn.model_selection import train_test_split
 from federated.config import (
     NUM_ROUNDS, LOCAL_EPOCHS, NUM_CLIENTS, SEED, BATCH_SIZE,
     STRAGGLER_TIMEOUT, STRAGGLER_SLOW_PROB, STRAGGLER_SLOW_MULT,
-    MIN_CLIENTS_FOR_AGG, SAVE_ROUND_MODELS,
+    MIN_CLIENTS_FOR_AGG, SAVE_ROUND_MODELS, DATA_SUBPATH,
+    PROCESSED_SUBDIR, CLIENT_SHARDS_SUBDIR,
+    GENERATED_FL_REPORTS_SUBDIR, GENERATED_FL_MODELS_SUBDIR,
 )
 from federated.aggregation import fedavg
 from federated.utils import (
     load_raw, build_encoders, build_dnn,
     get_model_weights, set_model_weights,
+    load_processed_splits, load_client_shards,
 )
 from ml.straggler import StragglerSimulator, filter_stragglers, straggler_summary
 from ml.versioning import ModelVersioner
@@ -72,9 +75,11 @@ tf.random.set_seed(SEED)
 
 # -- Paths ---------------------------------------------------------------------
 BASE_DIR    = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-DATA_PATH   = os.path.join(BASE_DIR, 'data', 'raw', 'primary.csv')
-MODELS_DIR  = os.path.join(BASE_DIR, 'ml', 'models')
-REPORTS_DIR = os.path.join(BASE_DIR, 'reports')
+DATA_PATH   = os.path.join(BASE_DIR, DATA_SUBPATH)
+PROCESSED_DIR = os.path.join(BASE_DIR, PROCESSED_SUBDIR)
+SHARDS_ROOT = os.path.join(BASE_DIR, CLIENT_SHARDS_SUBDIR)
+MODELS_DIR  = os.path.join(BASE_DIR, GENERATED_FL_MODELS_SUBDIR)
+REPORTS_DIR = os.path.join(BASE_DIR, GENERATED_FL_REPORTS_SUBDIR)
 METRICS_DIR = os.path.join(REPORTS_DIR, 'metrics')
 
 os.makedirs(MODELS_DIR, exist_ok=True)
@@ -143,6 +148,7 @@ def run_simulation(clients, global_model, num_rounds, versioner=None, straggler_
       6. (Optional) Save per-round model snapshot
       7. Log round metrics
     """
+    round_history = []
     best_acc     = -1.0
     best_weights = None
     best_round   = -1
@@ -304,6 +310,17 @@ def parse_args():
         '--no-stragglers', action='store_true',
         help='Disable straggler simulation (all clients always complete)'
     )
+    parser.add_argument(
+        '--partition',
+        choices=['non_iid', 'iid'],
+        default='non_iid',
+        help='Generated client shard partition to use (default: non_iid)'
+    )
+    parser.add_argument(
+        '--verify-shards-only',
+        action='store_true',
+        help='Load generated shards and exit without training'
+    )
     return parser.parse_args()
 
 
@@ -318,34 +335,73 @@ def main():
     global LOCAL_EPOCHS
     LOCAL_EPOCHS = local_epochs
 
-    tag = f"{n_clients}_clients"
+    tag = f"{args.partition}_{n_clients}_clients"
+    shards_root = os.path.join(
+        BASE_DIR,
+        PROCESSED_SUBDIR,
+        "client_shards",
+        args.partition,
+    )
 
     print("=" * 60)
     print("  AgriFL -- Federated Learning Simulation")
     print(f"  Strategy      : FedAvg")
     print(f"  Rounds        : {n_rounds}")
     print(f"  Local Epochs  : {LOCAL_EPOCHS}")
-    print(f"  Clients       : {n_clients} (Non-IID by soil type)")
+    print(f"  Clients       : {n_clients} ({args.partition})")
     print(f"  Stragglers    : {'enabled (sim)' if use_stragglers else 'disabled'}")
+    print(f"  Output dir    : {REPORTS_DIR}")
     print("=" * 60)
 
-    # 1. Load and preprocess
-    print("\nLoading and preprocessing data...")
-    raw_df = load_raw(DATA_PATH)
-    X, y, encoders, scaler, feature_cols = build_encoders(raw_df.copy())
-    num_classes = len(encoders['CROPS'].classes_)
-    n_features  = X.shape[1]
-    print(f"Total samples: {X.shape[0]}  |  Features: {n_features}  |  Classes: {num_classes}")
+    # 1. Prefer generated training-only shards. Fall back to the legacy raw
+    # path only when the preprocessing pipeline has not been run yet.
+    try:
+        split_info = load_processed_splits(PROCESSED_DIR)
+        clients, n_features, num_classes = load_client_shards(
+            shards_root,
+            n_clients=n_clients,
+        )
+        print("\nLoaded generated client shards.")
+        print(f"Shard root: {shards_root}")
+        print(
+            f"Train samples: {len(split_info['y_train'])}  |  "
+            f"Global test samples isolated: {len(split_info['y_test'])}"
+        )
+    except (FileNotFoundError, ValueError) as exc:
+        print(f"\nGenerated shards unavailable ({exc}). Falling back to raw preprocessing.")
+        raw_df = load_raw(DATA_PATH)
+        X, y, encoders, scaler, feature_cols = build_encoders(raw_df.copy())
+        num_classes = len(encoders['CROPS'].classes_)
+        n_features  = X.shape[1]
+        clients = partition_by_soil(raw_df, X, y, n_clients=n_clients)
+        print(
+            "Warning: legacy fallback uses the full cleaned primary dataset. "
+            "Run `python ml/feature_pipeline.py` for training-only shards."
+        )
 
-    # 2. Non-IID partitioning
-    clients = partition_by_soil(raw_df, X, y, n_clients=n_clients)
+    if args.verify_shards_only:
+        print("\nShard load verification complete.")
+        print(f"Clients loaded: {len(clients)}")
+        print(f"Features: {n_features}")
+        print(f"Classes: {num_classes}")
+        for client in clients:
+            print(
+                f"  Client {client['id']:02d}: "
+                f"train={len(client['y_train'])} val={len(client['y_val'])} "
+                f"dominant_soil={client['soil']}"
+            )
+        return
 
-    # 3. Initialize global model
+    # 2. Initialize global model
     global_model = build_dnn(input_dim=n_features, num_classes=num_classes)
-    global_model.predict(X[:1], verbose=0)
+    global_model.predict(np.zeros((1, n_features), dtype=np.float32), verbose=0)
 
-    # 4. Set up versioner and straggler simulator
-    versioner = ModelVersioner(base_dir=BASE_DIR, experiment_tag=tag)
+    # 3. Set up versioner and straggler simulator
+    versioner = ModelVersioner(
+        base_dir=BASE_DIR,
+        experiment_tag=tag,
+        versioned_dir=os.path.join(MODELS_DIR, "versioned"),
+    )
 
     straggler_sim = None
     if use_stragglers:
@@ -356,7 +412,7 @@ def main():
             seed=SEED,
         )
 
-    # 5. Run FL simulation
+    # 4. Run FL simulation
     round_history, best_weights, best_rnd = run_simulation(
         clients, global_model,
         num_rounds=n_rounds,
@@ -364,24 +420,24 @@ def main():
         straggler_sim=straggler_sim,
     )
 
-    # 6. Save training curves
+    # 5. Save training curves
     curves_path = os.path.join(METRICS_DIR, f'fl_training_curves_{tag}.png')
     plot_fl_curves(round_history, save_path=curves_path, n_clients=n_clients)
 
-    # 7. Save per-experiment CSV
+    # 6. Save per-experiment CSV
     results_df   = pd.DataFrame(round_history)
     results_path = os.path.join(REPORTS_DIR, f'fl_{tag}.csv')
     results_df.to_csv(results_path, index=False)
     print(f"FL results saved -> {results_path}")
 
-    # 8. Save BEST global model (best-performing round, not final round)
+    # 7. Save BEST global model (best-performing round, not final round)
     best_model_path = os.path.join(MODELS_DIR, f'fl_best_model_{tag}.keras')
     set_model_weights(global_model, best_weights)   # restore best weights
     global_model.save(best_model_path)
     print(f"Best model saved  -> {best_model_path}  (round {best_rnd}, "
           f"acc={max(h['accuracy'] for h in round_history):.4f})")
 
-    # 9. Also save the final-round model for reference
+    # 8. Also save the final-round model for reference
     final_model_path = os.path.join(MODELS_DIR, f'fl_global_model_{tag}.keras')
     # reload final weights from versioner snapshot if available
     try:
@@ -392,12 +448,7 @@ def main():
         global_model.save(final_model_path)
     print(f"Final model saved -> {final_model_path}")
 
-    # 10. Save encoders / scaler
-    joblib.dump(encoders, os.path.join(MODELS_DIR, f'fl_encoders_{tag}.pkl'))
-    joblib.dump(scaler,   os.path.join(MODELS_DIR, f'fl_scaler_{tag}.pkl'))
-    print(f"Encoders / Scaler saved -> {MODELS_DIR}")
-
-    # 11. Print version summary
+    # 9. Print version summary
     if SAVE_ROUND_MODELS:
         versioner.print_summary()
 

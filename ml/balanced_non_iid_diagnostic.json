@@ -1,0 +1,25 @@
+{
+    "experiment": "5_clients_balanced_non_iid",
+    "best_global_test_round": 23,
+    "best_global_test_accuracy": 0.9902,
+    "best_validation_round": 25,
+    "sugarbeet_metrics": {
+        "actual_count": 200,
+        "predicted_count": 200,
+        "actual_percentage": 1.75,
+        "predicted_percentage": 1.75,
+        "precision": 1.0,
+        "recall": 1.0,
+        "misclassified_crops_as_sugarbeet": {}
+    },
+    "comparison_with_extreme_non_iid_round_16": {
+        "old_global_test_acc": 0.4932,
+        "new_global_test_acc": 0.9902,
+        "accuracy_improvement": 0.497,
+        "old_sugarbeet_pred_pct": 10.75,
+        "new_sugarbeet_pred_pct": 1.75,
+        "old_sugarbeet_precision": 0.1633,
+        "new_sugarbeet_precision": 1.0,
+        "class_collapse_resolved": true
+    }
+}

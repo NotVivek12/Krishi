@@ -1,0 +1,14 @@
+[
+  "SOIL",
+  "SEASON",
+  "SOWN",
+  "WATER_SOURCE",
+  "SOIL_PH",
+  "CROPDURATION",
+  "TEMP",
+  "WATERREQUIRED",
+  "RELATIVE_HUMIDITY",
+  "N",
+  "P",
+  "K"
+]

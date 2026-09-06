@@ -53,11 +53,13 @@ def _display_text(value):
 
 
 class ModelService:
-    def __init__(self, model_path, encoders_path):
+    def __init__(self, model_path, encoders_path, scaler_path=None):
         self.model_path = Path(model_path)
         self.encoders_path = Path(encoders_path)
+        self.scaler_path = Path(scaler_path) if scaler_path else None
         self._model = None
         self._encoders = None
+        self._scaler = None
         self._category_maps = None
         self._model_version = None
         self._load_lock = threading.RLock()
@@ -65,7 +67,7 @@ class ModelService:
 
     @property
     def is_loaded(self):
-        return self._model is not None and self._encoders is not None
+        return self._model is not None and self._encoders is not None and self._scaler is not None
 
     def _ensure_loaded(self):
         if self.is_loaded:
@@ -77,8 +79,8 @@ class ModelService:
 
             missing = [
                 str(path)
-                for path in (self.model_path, self.encoders_path)
-                if not path.is_file()
+                for path in (self.model_path, self.encoders_path, self.scaler_path)
+                if path and not path.is_file()
             ]
             if missing:
                 raise ModelArtifactError(
@@ -86,8 +88,13 @@ class ModelService:
                 )
 
             try:
-                model = joblib.load(self.model_path)
+                if self.model_path.suffix == ".keras":
+                    import keras
+                    model = keras.models.load_model(self.model_path)
+                else:
+                    model = joblib.load(self.model_path)
                 encoders = joblib.load(self.encoders_path)
+                scaler = joblib.load(self.scaler_path) if self.scaler_path else None
             except Exception as exc:
                 raise ModelArtifactError(
                     "The crop recommendation model artifacts could not be loaded."
@@ -118,12 +125,14 @@ class ModelService:
 
             self._model = model
             self._encoders = encoders
+            self._scaler = scaler
             self._category_maps = category_maps
             try:
                 self._model_version = self._artifact_version()
             except OSError as exc:
                 self._model = None
                 self._encoders = None
+                self._scaler = None
                 self._category_maps = None
                 raise ModelArtifactError(
                     "The model artifact version could not be calculated."
@@ -131,11 +140,14 @@ class ModelService:
 
     def _artifact_version(self):
         digest = hashlib.sha256()
-        for path in (self.model_path, self.encoders_path):
+        for path in (self.model_path, self.encoders_path, self.scaler_path):
+            if not path:
+                continue
             with path.open("rb") as artifact:
                 for chunk in iter(lambda: artifact.read(1024 * 1024), b""):
                     digest.update(chunk)
-        return f"rf-{digest.hexdigest()[:12]}"
+        prefix = "fl-keras" if self.model_path.suffix == ".keras" else "rf"
+        return f"{prefix}-{digest.hexdigest()[:12]}"
 
     def normalize_category(self, feature, value):
         self._ensure_loaded()
@@ -172,15 +184,25 @@ class ModelService:
                 encoded[feature] = float(value)
 
         frame = pd.DataFrame([encoded], columns=FEATURE_ORDER)
+        if self._scaler is not None:
+            # Important: apply scaler before prediction for keras model
+            frame = self._scaler.transform(frame)
+            
         with self._prediction_lock:
-            probabilities = np.asarray(self._model.predict_proba(frame)[0])
+            if self.model_path.suffix == ".keras":
+                probabilities = np.asarray(self._model.predict(frame, verbose=0)[0])
+            else:
+                probabilities = np.asarray(self._model.predict_proba(frame)[0])
 
         limit = min(max(int(top_k), 1), len(probabilities))
         ranked_indices = np.argsort(probabilities)[::-1][:limit]
         recommendations = []
 
         for rank, probability_index in enumerate(ranked_indices, start=1):
-            class_id = int(self._model.classes_[probability_index])
+            if self.model_path.suffix == ".keras":
+                class_id = int(probability_index)
+            else:
+                class_id = int(self._model.classes_[probability_index])
             crop = str(
                 self._encoders["CROPS"].inverse_transform([class_id])[0]
             )
@@ -228,7 +250,7 @@ class ModelService:
             features.append(item)
 
         return {
-            "name": type(self._model).__name__,
+            "name": "AgriFL Federated DNN",
             "version": self._model_version,
             "status": "ready",
             "output_classes": len(self._encoders["CROPS"].classes_),
@@ -254,4 +276,8 @@ class ModelService:
 
 @lru_cache(maxsize=1)
 def get_model_service():
-    return ModelService(settings.MODEL_PATH, settings.ENCODERS_PATH)
+    return ModelService(
+        settings.MODEL_PATH, 
+        settings.ENCODERS_PATH, 
+        getattr(settings, "SCALER_PATH", None)
+    )

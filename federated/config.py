@@ -28,7 +28,11 @@ SAVE_ROUND_MODELS    = True   # if True, save global model snapshot after every 
 
 # ── Paths (relative to project root) ─────────────────────────────────────────
 DATA_SUBPATH    = "data/raw/primary.csv"
+PROCESSED_SUBDIR = "data/processed"
+CLIENT_SHARDS_SUBDIR = "data/processed/client_shards/non_iid"
 MODELS_SUBDIR   = "ml/models"
 REPORTS_SUBDIR  = "reports"
+GENERATED_FL_REPORTS_SUBDIR = "reports/generated_fl"
+GENERATED_FL_MODELS_SUBDIR = "ml/models/generated_fl"
 METRICS_SUBDIR  = "reports/metrics"
 VERSIONED_SUBDIR = "ml/models/versioned"

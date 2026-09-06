@@ -129,13 +129,19 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 MODEL_PATH = Path(
     os.environ.get(
         "KRISHI_MODEL_PATH",
-        REPOSITORY_ROOT / "ml" / "models" / "random_forest_model.pkl",
+        REPOSITORY_ROOT / "ml" / "models" / "fl_global_model.keras",
     )
 )
 ENCODERS_PATH = Path(
     os.environ.get(
         "KRISHI_ENCODERS_PATH",
-        REPOSITORY_ROOT / "ml" / "models" / "encoders.pkl",
+        REPOSITORY_ROOT / "ml" / "models" / "fl_encoders.pkl",
+    )
+)
+SCALER_PATH = Path(
+    os.environ.get(
+        "KRISHI_SCALER_PATH",
+        REPOSITORY_ROOT / "ml" / "models" / "fl_scaler.pkl",
     )
 )
 

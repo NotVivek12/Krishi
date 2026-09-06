@@ -14,7 +14,6 @@ from sklearn.metrics import (
 )
 
 def main():
-    # Paths
     base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     data_path = os.path.join(base_dir, 'data', 'raw', 'primary.csv')
     models_dir = os.path.join(base_dir, 'ml', 'models')
@@ -22,11 +21,9 @@ def main():
     os.makedirs(models_dir, exist_ok=True)
     os.makedirs(reports_dir, exist_ok=True)
     
-    # 1. Load the dataset
     print("Loading dataset...")
     df = pd.read_csv(data_path)
     
-    # 2. Exploratory checks
     print("\n--- Exploratory Checks ---")
     print(f"Shape: {df.shape}")
     print(f"Missing values:\n{df.isnull().sum()[df.isnull().sum() > 0]}")
@@ -34,21 +31,13 @@ def main():
     print("\nData Types:")
     print(df.dtypes)
     
-    # 3. Remove duplicate rows
     print("\nRemoving duplicate rows...")
     df = df.drop_duplicates()
     
-    # 4. Handle missing values
     if df.isnull().sum().sum() > 0:
         print("Handling missing values (dropping rows with NaNs)...")
         df = df.dropna()
         
-    # 5. Drop columns causing data leakage.
-    # TYPE_OF_CROP and HARVESTED are direct semantic leaks.
-    # The _MAX columns (SOIL_PH_HIGH, CROPDURATION_MAX, MAX_TEMP, WATERREQUIRED_MAX,
-    # RELATIVE_HUMIDITY_MAX, N_MAX, P_MAX, K_MAX) are crop requirement thresholds baked
-    # into the dataset — each has exactly 1 unique value per crop, so the model was
-    # simply reading the answer instead of learning from field measurements.
     columns_to_drop = [
         'TYPE_OF_CROP',
         'HARVESTED',
@@ -64,7 +53,6 @@ def main():
     print(f"\nDropping {len(columns_to_drop)} leakage columns: {columns_to_drop}")
     df = df.drop(columns=[col for col in columns_to_drop if col in df.columns])
     
-    # 6. Encode categorical columns
     categorical_cols = ['SOIL', 'SOWN', 'WATER_SOURCE', 'SEASON']
     encoders = {}
     
@@ -75,29 +63,24 @@ def main():
             df[col] = le.fit_transform(df[col].astype(str))
             encoders[col] = le
             
-    # 7. Encode target column
     print("Encoding target column (CROPS)...")
     target_le = LabelEncoder()
     df['CROPS'] = target_le.fit_transform(df['CROPS'].astype(str))
     encoders['CROPS'] = target_le
     
-    # 8. Create X and y
     print("\nCreating feature matrix X and target vector y...")
     X = df.drop(columns=['CROPS'])
     y = df['CROPS']
     
-    # 9. Train/Test Split
     print("Splitting data into train and test sets...")
     X_train, X_test, y_train, y_test = train_test_split(
         X, y, test_size=0.2, random_state=42, stratify=y
     )
     
-    # 10. Train RandomForestClassifier
     print("\nTraining RandomForestClassifier...")
     rf_model = RandomForestClassifier(n_estimators=200, random_state=42, n_jobs=-1)
     rf_model.fit(X_train, y_train)
     
-    # 11. Evaluate Model
     print("\nEvaluating model...")
     y_pred = rf_model.predict(X_test)
     
@@ -114,7 +97,6 @@ def main():
     print("\nClassification Report:")
     print(classification_report(y_test, y_pred, target_names=target_le.classes_, zero_division=0))
     
-    # 12. Feature Importance
     print("\nFeature Importance:")
     importances = rf_model.feature_importances_
     indices = np.argsort(importances)[::-1]
@@ -123,9 +105,8 @@ def main():
     for i in range(X.shape[1]):
         print(f"{i+1}. {features[indices[i]]}: {importances[indices[i]]:.4f}")
         
-    # 13. Plots
     print("\nGenerating plots...")
-    # Feature Importance Plot
+
     plt.figure(figsize=(10, 6))
     plt.title("Feature Importance")
     plt.bar(range(X.shape[1]), importances[indices], align="center")

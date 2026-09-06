@@ -112,40 +112,37 @@ class PredictView(APIView):
 
 class PredictionListView(generics.ListAPIView):
     serializer_class = PredictionSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
 
     def get_queryset(self):
-        return Prediction.objects.filter(user=self.request.user).select_related(
-            "feedback"
-        )
+        if self.request.user.is_authenticated:
+            return Prediction.objects.filter(user=self.request.user).select_related("feedback").order_by('-created_at')
+        return Prediction.objects.all().select_related("feedback").order_by('-created_at')[:50]
 
 
 class PredictionDetailView(generics.RetrieveAPIView):
     serializer_class = PredictionSerializer
-    permission_classes = [IsAuthenticated, IsPredictionOwner]
+    permission_classes = [AllowAny]
     lookup_url_kwarg = "prediction_id"
 
     def get_queryset(self):
-        return Prediction.objects.filter(user=self.request.user).select_related(
-            "feedback"
-        )
+        return Prediction.objects.all().select_related("feedback")
 
 
 class PredictionFeedbackView(APIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
 
     def post(self, request, prediction_id):
         prediction = get_object_or_404(
             Prediction,
             id=prediction_id,
-            user=request.user,
         )
         serializer = FeedbackSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         feedback, created = PredictionFeedback.objects.update_or_create(
             prediction=prediction,
             defaults={
-                "user": request.user,
+                "user": request.user if request.user.is_authenticated else None,
                 **serializer.validated_data,
             },
         )

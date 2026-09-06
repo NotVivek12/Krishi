@@ -1,0 +1,259 @@
+{
+  "raw_files": {
+    "primary.csv": {
+      "file": "data\\raw\\primary.csv",
+      "shape": {
+        "rows": 57000,
+        "columns": 23
+      },
+      "columns": [
+        "CROPS",
+        "TYPE_OF_CROP",
+        "SOIL",
+        "SEASON",
+        "SOWN",
+        "HARVESTED",
+        "WATER_SOURCE",
+        "SOIL_PH",
+        "SOIL_PH_HIGH",
+        "CROPDURATION",
+        "CROPDURATION_MAX",
+        "TEMP",
+        "MAX_TEMP",
+        "WATERREQUIRED",
+        "WATERREQUIRED_MAX",
+        "RELATIVE_HUMIDITY",
+        "RELATIVE_HUMIDITY_MAX",
+        "N",
+        "N_MAX",
+        "P",
+        "P_MAX",
+        "K",
+        "K_MAX"
+      ],
+      "dtypes": {
+        "CROPS": "str",
+        "TYPE_OF_CROP": "str",
+        "SOIL": "str",
+        "SEASON": "str",
+        "SOWN": "str",
+        "HARVESTED": "str",
+        "WATER_SOURCE": "str",
+        "SOIL_PH": "float64",
+        "SOIL_PH_HIGH": "float64",
+        "CROPDURATION": "float64",
+        "CROPDURATION_MAX": "int64",
+        "TEMP": "float64",
+        "MAX_TEMP": "int64",
+        "WATERREQUIRED": "float64",
+        "WATERREQUIRED_MAX": "int64",
+        "RELATIVE_HUMIDITY": "float64",
+        "RELATIVE_HUMIDITY_MAX": "int64",
+        "N": "float64",
+        "N_MAX": "int64",
+        "P": "float64",
+        "P_MAX": "int64",
+        "K": "float64",
+        "K_MAX": "int64"
+      },
+      "missing_values": {},
+      "duplicate_rows": 0,
+      "target_column": "CROPS",
+      "class_count": 57,
+      "leakage_columns_present": [
+        "TYPE_OF_CROP",
+        "HARVESTED",
+        "SOIL_PH_HIGH",
+        "CROPDURATION_MAX",
+        "MAX_TEMP",
+        "WATERREQUIRED_MAX",
+        "RELATIVE_HUMIDITY_MAX",
+        "N_MAX",
+        "P_MAX",
+        "K_MAX"
+      ]
+    },
+    "analysis.csv": {
+      "file": "data\\raw\\analysis.csv",
+      "shape": {
+        "rows": 19689,
+        "columns": 10
+      },
+      "columns": [
+        "Crop",
+        "Crop_Year",
+        "Season",
+        "State",
+        "Area",
+        "Production",
+        "Annual_Rainfall",
+        "Fertilizer",
+        "Pesticide",
+        "Yield"
+      ],
+      "dtypes": {
+        "Crop": "str",
+        "Crop_Year": "int64",
+        "Season": "str",
+        "State": "str",
+        "Area": "float64",
+        "Production": "int64",
+        "Annual_Rainfall": "float64",
+        "Fertilizer": "float64",
+        "Pesticide": "float64",
+        "Yield": "float64"
+      },
+      "missing_values": {},
+      "duplicate_rows": 0,
+      "target_column": "Crop",
+      "class_count": 55,
+      "leakage_columns_present": []
+    },
+    "validation.csv": {
+      "file": "data\\raw\\validation.csv",
+      "shape": {
+        "rows": 3867,
+        "columns": 29
+      },
+      "columns": [
+        "Soilcolor",
+        "Ph",
+        "K",
+        "P",
+        "N",
+        "Zn",
+        "S",
+        "QV2M-W",
+        "QV2M-Sp",
+        "QV2M-Su",
+        "QV2M-Au",
+        "T2M_MAX-W",
+        "T2M_MAX-Sp",
+        "T2M_MAX-Su",
+        "T2M_MAX-Au",
+        "T2M_MIN-W",
+        "T2M_MIN-Sp",
+        "T2M_MIN-Su",
+        "T2M_MIN-Au",
+        "PRECTOTCORR-W",
+        "PRECTOTCORR-Sp",
+        "PRECTOTCORR-Su",
+        "PRECTOTCORR-Au",
+        "WD10M",
+        "GWETTOP",
+        "CLOUD_AMT",
+        "WS2M_RANGE",
+        "PS",
+        "label"
+      ],
+      "dtypes": {
+        "Soilcolor": "str",
+        "Ph": "float64",
+        "K": "float64",
+        "P": "float64",
+        "N": "float64",
+        "Zn": "float64",
+        "S": "float64",
+        "QV2M-W": "float64",
+        "QV2M-Sp": "float64",
+        "QV2M-Su": "float64",
+        "QV2M-Au": "float64",
+        "T2M_MAX-W": "float64",
+        "T2M_MAX-Sp": "float64",
+        "T2M_MAX-Su": "float64",
+        "T2M_MAX-Au": "float64",
+        "T2M_MIN-W": "float64",
+        "T2M_MIN-Sp": "float64",
+        "T2M_MIN-Su": "float64",
+        "T2M_MIN-Au": "float64",
+        "PRECTOTCORR-W": "float64",
+        "PRECTOTCORR-Sp": "float64",
+        "PRECTOTCORR-Su": "float64",
+        "PRECTOTCORR-Au": "float64",
+        "WD10M": "float64",
+        "GWETTOP": "float64",
+        "CLOUD_AMT": "float64",
+        "WS2M_RANGE": "float64",
+        "PS": "float64",
+        "label": "str"
+      },
+      "missing_values": {},
+      "duplicate_rows": 0,
+      "target_column": "label",
+      "class_count": 12,
+      "leakage_columns_present": []
+    }
+  },
+  "relationships": [
+    {
+      "left": "primary.csv",
+      "right": "validation.csv",
+      "same_columns": false,
+      "common_column_count": 3,
+      "common_columns": [
+        "K",
+        "N",
+        "P"
+      ],
+      "same_shape": false,
+      "duplicates_or_subsets": false,
+      "reason": "Schemas differ, so these files are not row-level duplicates/subsets of one another."
+    },
+    {
+      "left": "analysis.csv",
+      "right": "primary.csv",
+      "same_columns": false,
+      "common_column_count": 0,
+      "common_columns": [],
+      "same_shape": false,
+      "duplicates_or_subsets": false,
+      "reason": "Schemas differ, so these files are not row-level duplicates/subsets of one another."
+    },
+    {
+      "left": "analysis.csv",
+      "right": "validation.csv",
+      "same_columns": false,
+      "common_column_count": 0,
+      "common_columns": [],
+      "same_shape": false,
+      "duplicates_or_subsets": false,
+      "reason": "Schemas differ, so these files are not row-level duplicates/subsets of one another."
+    }
+  ],
+  "selected_roles": {
+    "primary.csv": "authoritative model training source",
+    "analysis.csv": "available for EDA/statistical crop-yield analysis; not used for model training",
+    "validation.csv": "held-out external-style validation candidate; not used for FL client training"
+  },
+  "primary_cleaned": {
+    "raw_rows": 57000,
+    "duplicate_rows_removed": 0,
+    "rows_removed_for_missing_required_values": 0,
+    "rows_removed_for_invalid_numeric_values": 0,
+    "leakage_columns_removed": [
+      "TYPE_OF_CROP",
+      "HARVESTED",
+      "SOIL_PH_HIGH",
+      "CROPDURATION_MAX",
+      "MAX_TEMP",
+      "WATERREQUIRED_MAX",
+      "RELATIVE_HUMIDITY_MAX",
+      "N_MAX",
+      "P_MAX",
+      "K_MAX"
+    ],
+    "final_rows": 57000,
+    "final_feature_count": 12,
+    "target_column": "CROPS",
+    "crop_class_count": 57
+  },
+  "generated_outputs": {
+    "splits": [
+      "data/processed/X_train.csv",
+      "data/processed/X_test.csv",
+      "data/processed/y_train.csv",
+      "data/processed/y_test.csv"
+    ],
+    "client_distribution_rows": 70
+  }
+}

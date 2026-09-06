@@ -137,3 +137,96 @@ def get_model_weights(model: keras.Model):
 def set_model_weights(model: keras.Model, weights):
     """Apply a list of numpy arrays as model weights."""
     model.set_weights(weights)
+
+
+def load_processed_splits(processed_dir: str):
+    """Load generated train/test splits and return arrays plus metadata."""
+    required = ["X_train.csv", "X_test.csv", "y_train.csv", "y_test.csv"]
+    missing = [
+        filename
+        for filename in required
+        if not os.path.exists(os.path.join(processed_dir, filename))
+    ]
+    if missing:
+        raise FileNotFoundError(
+            "Processed split files are missing: " + ", ".join(missing)
+        )
+
+    X_train_df = pd.read_csv(os.path.join(processed_dir, "X_train.csv"))
+    X_test_df = pd.read_csv(os.path.join(processed_dir, "X_test.csv"))
+    y_train_df = pd.read_csv(os.path.join(processed_dir, "y_train.csv"))
+    y_test_df = pd.read_csv(os.path.join(processed_dir, "y_test.csv"))
+
+    feature_cols = [col for col in X_train_df.columns if col != "source_row_id"]
+    return {
+        "X_train": X_train_df[feature_cols].to_numpy(dtype=np.float32),
+        "X_test": X_test_df[feature_cols].to_numpy(dtype=np.float32),
+        "y_train": y_train_df["target"].to_numpy(dtype=np.int32),
+        "y_test": y_test_df["target"].to_numpy(dtype=np.int32),
+        "feature_cols": feature_cols,
+        "num_classes": int(y_train_df["target"].nunique()),
+    }
+
+
+def load_client_shards(shards_root: str, n_clients: int, val_fraction: float = 0.2):
+    """
+    Load generated training-only client shards for FL.
+
+    Each shard CSV contains scaled/encoded model features plus metadata columns.
+    A local train/validation split is made inside each client from that shard
+    only; the global X_test/y_test split remains isolated.
+    """
+    shard_dir = os.path.join(shards_root, f"{n_clients}_clients")
+    if not os.path.isdir(shard_dir):
+        raise FileNotFoundError(f"Client shard directory not found: {shard_dir}")
+
+    shard_files = sorted(
+        filename
+        for filename in os.listdir(shard_dir)
+        if filename.startswith("client_") and filename.endswith(".csv")
+    )
+    if len(shard_files) != n_clients:
+        raise ValueError(
+            f"Expected {n_clients} shard files in {shard_dir}, "
+            f"found {len(shard_files)}."
+        )
+
+    clients = []
+    for index, filename in enumerate(shard_files, start=1):
+        frame = pd.read_csv(os.path.join(shard_dir, filename))
+        feature_cols = [
+            col
+            for col in frame.columns
+            if col not in {"source_row_id", "target", "crop_label", "SOIL_raw"}
+        ]
+        X = frame[feature_cols].to_numpy(dtype=np.float32)
+        y = frame["target"].to_numpy(dtype=np.int32)
+        stratify = y if len(np.unique(y)) > 1 and min(np.bincount(y)) >= 2 else None
+        X_tr, X_val, y_tr, y_val = train_test_split(
+            X,
+            y,
+            test_size=val_fraction,
+            random_state=42,
+            stratify=stratify,
+        )
+        soil_counts = frame["SOIL_raw"].value_counts()
+        dominant_soil = str(soil_counts.index[0])
+        clients.append(
+            {
+                "id": index,
+                "soil": dominant_soil,
+                "X_train": X_tr,
+                "y_train": y_tr,
+                "X_val": X_val,
+                "y_val": y_val,
+                "n_train": len(X_tr),
+                "source_file": filename,
+                "soil_distribution": soil_counts.to_dict(),
+            }
+        )
+
+    feature_count = len(feature_cols) if shard_files else 0
+    num_classes = int(
+        max(client["y_train"].max() for client in clients) + 1
+    )
+    return clients, feature_count, num_classes

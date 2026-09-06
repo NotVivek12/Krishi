@@ -50,10 +50,10 @@ class ModelVersioner:
         Useful when running multiple experiments with different NUM_CLIENTS.
     """
 
-    def __init__(self, base_dir: str, experiment_tag: str = ""):
+    def __init__(self, base_dir: str, experiment_tag: str = "", versioned_dir: str = None):
         self.base_dir        = base_dir
         self.experiment_tag  = experiment_tag
-        self.versioned_dir   = os.path.join(base_dir, "ml", "models", "versioned")
+        self.versioned_dir   = versioned_dir or os.path.join(base_dir, "ml", "models", "versioned")
         self.metadata_path   = os.path.join(self.versioned_dir, "metadata.json")
         os.makedirs(self.versioned_dir, exist_ok=True)
 

@@ -1,0 +1,2 @@
+model_name,model_path,is_federated,input_features,output_classes,test_samples,accuracy,precision,recall,f1_score,top3_accuracy,round_16_validation_accuracy,accuracy_drop_from_val
+"AgriFL Global Model (5 Clients, Round 16 Checkpoint)",D:\Krishi\ml\models\fl_global_model.keras,True,12,57,11400,0.4932456140350877,0.4435869797952251,0.4932456140350877,0.4052511114793712,0.6163157894736843,0.7194,0.22615438596491233
