@@ -1,0 +1,12 @@
+.git
+.venv
+**/__pycache__
+**/*.pyc
+.pytest_cache
+.env
+data
+frontend
+reports
+ml/models/*
+!ml/models/random_forest_model.pkl
+!ml/models/encoders.pkl
